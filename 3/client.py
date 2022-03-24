@@ -1,5 +1,7 @@
 """Программа-клиент"""
 
+import logging
+import logs.client_log_config
 import sys
 import json
 import socket
@@ -7,6 +9,8 @@ import time
 from common.variables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT
 from common.utils import get_message, send_message
+
+CLIENT_LOGGER = logging.getLogger('client')
 
 
 def create_presence(account_name='Guest'):
@@ -61,6 +65,7 @@ def main():
     send_message(transport, message_to_server)
     try:
         answer = process_ans(get_message(transport))
+        CLIENT_LOGGER.info(answer)
         print(answer)
     except (ValueError, json.JSONDecodeError):
         print('Не удалось декодировать сообщение сервера.')

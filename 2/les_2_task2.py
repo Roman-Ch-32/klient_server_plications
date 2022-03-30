@@ -12,12 +12,12 @@ params = {
     'quantity': 'количество',
     'price': 'цена',
     'buyer': 'покупатель',
-    'date': 'дата',
+    'date': 'дата1',
 }
 
 
 def write_order_to_json(data):
-    with open('orders.json', 'w', encoding='utf-8') as f:
+    with open('orders.json', 'a', encoding='utf-8') as f:
         json.dump(data, f, indent=4)
 
 

@@ -55,10 +55,10 @@ def get_data():
                 if len(os_type_pattern.split(line)) > 1:
                     os_type_list.append(os_type_pattern.split(line)[1].strip())
 
-    return [headers, os_prod_list, os_name_list, os_code_list, os_type_list]
+    # return [headers, os_prod_list, os_name_list, os_code_list, os_type_list]
 
-    # data_transformed = list(zip(os_prod_list, os_name_list, os_code_list, os_type_list))
-    # return [headers] + data_transformed
+    data_transformed = list(zip(os_prod_list, os_name_list, os_code_list, os_type_list))
+    return [headers] + data_transformed
 
 
 def write_to_csv(data):

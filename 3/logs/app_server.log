@@ -1,0 +1,4 @@
+2022-03-25 02:12:34,414 - server - INFO - 7777
+2022-03-25 02:12:42,241 - server - INFO - {'action': 'presence', 'time': 1648163562.2414804, 'user': {'account_name': 'Guest'}}
+2022-03-25 02:12:42,241 - server - INFO - Разбор сообщения от клиента : {'action': 'presence', 'time': 1648163562.2414804, 'user': {'account_name': 'Guest'}}
+2022-03-25 02:12:42,241 - server - INFO - {'respons1e': 200, 'message': 'соединение установлено'}

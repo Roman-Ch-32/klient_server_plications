@@ -5,11 +5,13 @@ import sys
 import json
 
 import logging
+import time
+
 import logs.server_log_config
 from logs.dec_log import log
 
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
-    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, RESPONDEFAULT_IP_ADDRESSE, MSG
+    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, RESPONDEFAULT_IP_ADDRESSE, MSG, SENDER, MESSAGE_TEXT
 from common.utils import get_message, send_message
 
 SERVER_LOGGER = logging.getLogger('server')
@@ -83,6 +85,10 @@ def main():
 
     transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     transport.bind((listen_address, listen_port))
+    transport.settimeout(0.5)
+
+    clients = []
+    messages = []
 
 
     # Слушаем порт
@@ -90,19 +96,56 @@ def main():
     transport.listen(MAX_CONNECTIONS)
 
     while True:
-        client, client_address = transport.accept()
         try:
-            message_from_cient = get_message(client)
-            SERVER_LOGGER.info(message_from_cient)
-            print(message_from_cient)
-            response = process_client_message(message_from_cient)
-            send_message(client, response)
-            SERVER_LOGGER.info(response)
-            client.close()
-        except (ValueError, json.JSONDecodeError):
-            SERVER_LOGGER.critical('Принято некорретное сообщение от клиента.')
-            print('Принято некорретное сообщение от клиента.')
-            client.close()
+            client, client_address = transport.accept()
+        except OSError as err:
+            print(err.errno)
+            pass
+        else:
+            SERVER_LOGGER.info((f'Установлено соедение с ПК {client_address}'))
+            clients.append(client)
+
+        recv_data_lst = []
+        send_data_lst = []
+
+        if recv_data_lst:
+            for client_with_message in recv_data_lst:
+                try:
+                    process_client_message(get_message(client_with_message),
+                                           messages, client_with_message)
+                except:
+                    SERVER_LOGGER.info(f'Клиент {client_with_message.getpeername()} '
+                                f'отключился от сервера.')
+                    clients.remove(client_with_message)
+
+        # Если есть сообщения для отправки и ожидающие клиенты, отправляем им сообщение.
+        if messages and send_data_lst:
+            message = {
+                ACTION: MSG,
+                SENDER: messages[0][0],
+                TIME: time.time(),
+                MESSAGE_TEXT: messages[0][1]
+            }
+            del messages[0]
+            for waiting_client in send_data_lst:
+                try:
+                    send_message(waiting_client, message)
+                except:
+                    SERVER_LOGGER.info(f'Клиент {waiting_client.getpeername()} отключился от сервера.')
+                    waiting_client.close()
+                    clients.remove(waiting_client)
+
+        #     message_from_cient = get_message(client)
+        #     SERVER_LOGGER.info(message_from_cient)
+        #     print(message_from_cient)
+        #     response = process_client_message(message_from_cient)
+        #     send_message(client, response)
+        #     SERVER_LOGGER.info(response)
+        #     client.close()
+        # except (ValueError, json.JSONDecodeError):
+        #     SERVER_LOGGER.critical('Принято некорретное сообщение от клиента.')
+        #     print('Принято некорретное сообщение от клиента.')
+        #     client.close()
 
 
 if __name__ == '__main__':

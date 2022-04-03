@@ -1,4 +1,11 @@
-2022-03-25 02:12:34,414 - server - INFO - 7777
-2022-03-25 02:12:42,241 - server - INFO - {'action': 'presence', 'time': 1648163562.2414804, 'user': {'account_name': 'Guest'}}
-2022-03-25 02:12:42,241 - server - INFO - Разбор сообщения от клиента : {'action': 'presence', 'time': 1648163562.2414804, 'user': {'account_name': 'Guest'}}
-2022-03-25 02:12:42,241 - server - INFO - {'respons1e': 200, 'message': 'соединение установлено'}
+2022-04-02 20:14:38,621 - server - INFO - 7777
+2022-04-02 20:15:48,542 - server - INFO - 7777
+2022-04-03 14:07:26,155 - server - INFO - 7777
+2022-04-03 14:07:29,957 - server - INFO - {'action': 'presence', 'time': 1648984049.9258592, 'user': {'account_name': 'Guest'}}
+2022-04-03 14:07:29,957 - server - INFO - Разбор сообщения от клиента : {'action': 'presence', 'time': 1648984049.9258592, 'user': {'account_name': 'Guest'}}
+2022-04-03 14:07:29,972 - server - DEBUG - Была вызвана функция process_client_message c параметрами ({'action': 'presence', 'time': 1648984049.9258592, 'user': {'account_name': 'Guest'}},), {}.Вызов из модуля __main__.Вызов из функции main().Вызов из функции main@@@Вызов из функции main@@@вызов из модуля server.py
+2022-04-03 14:07:29,972 - server - INFO - {'respons1e': 200, 'message': 'соединение установлено'}
+2022-04-03 14:08:15,482 - server - INFO - {'action': 'presence', 'time': 1648984095.4665303, 'user': {'account_name': 'Guest'}}
+2022-04-03 14:08:15,482 - server - INFO - Разбор сообщения от клиента : {'action': 'presence', 'time': 1648984095.4665303, 'user': {'account_name': 'Guest'}}
+2022-04-03 14:08:15,482 - server - DEBUG - Была вызвана функция process_client_message c параметрами ({'action': 'presence', 'time': 1648984095.4665303, 'user': {'account_name': 'Guest'}},), {}.Вызов из модуля __main__.Вызов из функции main().Вызов из функции main@@@Вызов из функции main@@@вызов из модуля server.py
+2022-04-03 14:08:15,482 - server - INFO - {'respons1e': 200, 'message': 'соединение установлено'}

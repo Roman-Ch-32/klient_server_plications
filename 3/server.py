@@ -6,6 +6,7 @@ import json
 
 import logging
 import logs.server_log_config
+from logs.dec_log import log
 
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, RESPONDEFAULT_IP_ADDRESSE, MSG
@@ -13,6 +14,8 @@ from common.utils import get_message, send_message
 
 SERVER_LOGGER = logging.getLogger('server')
 
+
+@log
 def process_client_message(message):
     '''
     Обработчик сообщений от клиентов, принимает словарь -
@@ -32,6 +35,7 @@ def process_client_message(message):
     }
 
 
+@log
 def main():
     '''
     Загрузка параметров командной строки, если нет параметров, то задаём значения по умоланию.

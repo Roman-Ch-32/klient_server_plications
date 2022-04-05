@@ -20,7 +20,8 @@ ACTION = 'action'
 TIME = 'time'
 USER = 'user'
 ACCOUNT_NAME = 'account_name'
-SENDER = 'sender'
+SENDER = 'from'
+EXIT = 'exit'
 
 # Прочие ключи, используемые в протоколе
 PRESENCE = 'presence'
@@ -29,3 +30,11 @@ ERROR = 'error'
 RESPONDEFAULT_IP_ADDRESSE = 'respondefault_ip_addresse'
 MSG = 'message'
 MESSAGE_TEXT = 'mess_text'
+DESTINATION = 'to'
+
+RESPONSE_200 = {RESPONSE: 200}
+# 400
+RESPONSE_400 = {
+    RESPONSE: 400,
+    ERROR: None
+}

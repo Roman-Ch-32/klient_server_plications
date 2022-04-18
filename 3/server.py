@@ -5,72 +5,165 @@ import sys
 import json
 
 import logging
+import threading
 import time
 
 import logs.server_log_config
 from logs.dec_log import log
-
+from common.desk import DeskPortCheck
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, RESPONDEFAULT_IP_ADDRESSE, MSG, SENDER, MESSAGE_TEXT, RESPONSE_200, \
     RESPONSE_400, DESTINATION, EXIT
 from common.utils import get_message, send_message
+from metaclasses import ServerMaker
 
 SERVER_LOGGER = logging.getLogger('server')
 
 
-@log
-def process_client_message(message, messages_list, client, clients, names):
-    '''
-    Обработчик сообщений от клиентов, принимает словарь -
-    сообщение от клинта, проверяет корректность,
-    возвращает словарь-ответ для клиента
+class Server(threading.Thread, metaclass=ServerMaker):
+    def __init__(self, message, messages_list, client, clients, names):
+        self.message = message
+        self.client = client
+        self.clients = clients
+        self.messages_list = messages_list
+        self.names = names
+        super().__init__()
 
-    :param message:
-    :return:
-    '''
-    # SERVER_LOGGER.info(f'Разбор сообщения от клиента : {message}')
-    # if ACTION in message and message[ACTION] == PRESENCE and TIME in message \
-    #         and USER in message and message[USER][ACCOUNT_NAME] == 'Guest':
-    #     return {RESPONSE: 200, MSG: 'соединение установлено'}
-    # return {
-    #     RESPONDEFAULT_IP_ADDRESSE: 400,
-    #     ERROR: 'Bad Request'
-    # }
-    SERVER_LOGGER.debug(f'Разбор сообщения от клиента : {message}')
-    # Если это сообщение о присутствии, принимаем и отвечаем
-    if ACTION in message and message[ACTION] == PRESENCE and \
-            TIME in message and USER in message:
-        # Если такой пользователь ещё не зарегистрирован,
-        # регистрируем, иначе отправляем ответ и завершаем соединение.
-        if message[USER][ACCOUNT_NAME] not in names.keys():
-            names[message[USER][ACCOUNT_NAME]] = client
-            send_message(client, RESPONSE_200)
+
+    def mainloop(self):
+        try:
+            if '-p' in sys.argv:
+                listen_port = int(sys.argv[sys.argv.index('-p') + 1])
+                SERVER_LOGGER.info(listen_port)
+                print(listen_port)
+            else:
+                listen_port = DEFAULT_PORT
+                SERVER_LOGGER.info(listen_port)
+                print(listen_port)
+            if listen_port < 1024 or listen_port > 65535:
+                SERVER_LOGGER.error('ValueError')
+                raise ValueError
+        except IndexError:
+            SERVER_LOGGER.error('После параметра -\'p\' необходимо указать номер порта.')
+            print('После параметра -\'p\' необходимо указать номер порта.')
+            sys.exit(1)
+        except ValueError:
+            SERVER_LOGGER.error('В качастве порта может быть указано только число в диапазоне от 1024 до 65535.')
+            print('В качастве порта может быть указано только число в диапазоне от 1024 до 65535.')
+            sys.exit(1)
+
+            # Затем загружаем какой адрес слушать
+
+        try:
+            if '-a' in sys.argv:
+                listen_address = sys.argv[sys.argv.index('-a') + 1]
+            else:
+                listen_address = ''
+
+        except IndexError:
+            SERVER_LOGGER.error('После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.')
+            print(
+                'После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.')
+            sys.exit(1)
+
+            # Готовим сокет
+
+        transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        transport.bind((listen_address, listen_port))
+        transport.settimeout(0.5)
+
+        clients = []
+        messages = []
+        names = dict()
+
+        transport.listen(MAX_CONNECTIONS)
+
+        while True:
+            try:
+                client, client_address = transport.accept()
+            except OSError as err:
+                print(err.errno)
+                pass
+            else:
+                SERVER_LOGGER.info((f'Установлено соедение с ПК {client_address}'))
+                clients.append(client)
+
+            recv_data_lst = []
+            send_data_lst = []
+
+            if recv_data_lst:
+                for client_with_message in recv_data_lst:
+                    try:
+                        Server.process_client_message(get_message(client_with_message),
+                                                      messages, client_with_message, clients, names)
+                    except Exception:
+                        SERVER_LOGGER.info(f'Клиент {client_with_message.getpeername()} '
+                                           f'отключился от сервера.')
+                        clients.remove(client_with_message)
+
+            for i in messages:
+                try:
+                    process_message(i, names, send_data_lst)
+                except Exception:
+                    SERVER_LOGGER.info(f'Связь с клиентом с именем {i[DESTINATION]} была потеряна')
+                    clients.remove(names[i[DESTINATION]])
+                    del names[i[DESTINATION]]
+            messages.clear()
+
+
+    @log
+    def process_client_message(self):
+        '''
+        Обработчик сообщений от клиентов, принимает словарь -
+        сообщение от клинта, проверяет корректность,
+        возвращает словарь-ответ для клиента
+
+        :param message:
+        :return:
+        '''
+        # SERVER_LOGGER.info(f'Разбор сообщения от клиента : {message}')
+        # if ACTION in message and message[ACTION] == PRESENCE and TIME in message \
+        #         and USER in message and message[USER][ACCOUNT_NAME] == 'Guest':
+        #     return {RESPONSE: 200, MSG: 'соединение установлено'}
+        # return {
+        #     RESPONDEFAULT_IP_ADDRESSE: 400,
+        #     ERROR: 'Bad Request'
+        # }
+        SERVER_LOGGER.debug(f'Разбор сообщения от клиента : {self.message}')
+        # Если это сообщение о присутствии, принимаем и отвечаем
+        if ACTION in self.message and self.message[ACTION] == PRESENCE and \
+                TIME in self.message and USER in self.message:
+            # Если такой пользователь ещё не зарегистрирован,
+            # регистрируем, иначе отправляем ответ и завершаем соединение.
+            if self.message[USER][ACCOUNT_NAME] not in self.names.keys():
+                self.names[self.message[USER][ACCOUNT_NAME]] = self.client
+                send_message(self.client, RESPONSE_200)
+            else:
+                response = RESPONSE_400
+                response[ERROR] = 'Имя пользователя уже занято.'
+                send_message(self.client, response)
+                self.clients.remove(self.client)
+                self.client.close()
+            return
+        # Если это сообщение, то добавляем его в очередь сообщений.
+        # Ответ не требуется.
+        elif ACTION in self.message and self.message[ACTION] == MSG and \
+                DESTINATION in self.message and TIME in self.message \
+                and SENDER in self.message and MESSAGE_TEXT in self.message:
+            self.messages_list.append(self.message)
+            return
+        # Если клиент выходит
+        elif ACTION in self.message and self.message[ACTION] == EXIT and ACCOUNT_NAME in self.message:
+            self.clients.remove(self.names[self.message[ACCOUNT_NAME]])
+            self.names[self.message[ACCOUNT_NAME]].close()
+            del self.names[self.message[ACCOUNT_NAME]]
+            return
+        # Иначе отдаём Bad request
         else:
             response = RESPONSE_400
-            response[ERROR] = 'Имя пользователя уже занято.'
-            send_message(client, response)
-            clients.remove(client)
-            client.close()
-        return
-    # Если это сообщение, то добавляем его в очередь сообщений.
-    # Ответ не требуется.
-    elif ACTION in message and message[ACTION] == MSG and \
-            DESTINATION in message and TIME in message \
-            and SENDER in message and MESSAGE_TEXT in message:
-        messages_list.append(message)
-        return
-    # Если клиент выходит
-    elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message:
-        clients.remove(names[message[ACCOUNT_NAME]])
-        names[message[ACCOUNT_NAME]].close()
-        del names[message[ACCOUNT_NAME]]
-        return
-    # Иначе отдаём Bad request
-    else:
-        response = RESPONSE_400
-        response[ERROR] = 'Запрос некорректен.'
-        send_message(client, response)
-        return
+            response[ERROR] = 'Запрос некорректен.'
+            send_message(self.client, response)
+            return
 
 @log
 def arg_parser():
@@ -82,13 +175,15 @@ def arg_parser():
     listen_address = namespace.a
     listen_port = namespace.p
 
-    # проверка получения корректного номера порта для работы сервера.
-    if not 1023 < listen_port < 65536:
-        SERVER_LOGGER.critical(
-            f'Попытка запуска сервера с указанием неподходящего порта {listen_port}. '
-            f'Допустимы адреса с 1024 до 65535.')
-        sys.exit(1)
+    listen_port = DeskPortCheck()
 
+    # # проверка получения корректного номера порта для работы сервера.
+    # if not 1023 < listen_port < 65536:
+    #     SERVER_LOGGER.critical(
+    #         f'Попытка запуска сервера с указанием неподходящего порта {listen_port}. '
+    #         f'Допустимы адреса с 1024 до 65535.')
+    #     sys.exit(1)
+    #
     return listen_address, listen_port
 
 @log
@@ -113,85 +208,8 @@ def main():
     server.py -p 8888 -a 127.0.0.1
     :return:
     '''
+    Server.mainloop(arg_parser())
 
-    try:
-        if '-p' in sys.argv:
-            listen_port = int(sys.argv[sys.argv.index('-p') + 1])
-            SERVER_LOGGER.info(listen_port)
-            print(listen_port)
-        else:
-            listen_port = DEFAULT_PORT
-            SERVER_LOGGER.info(listen_port)
-            print(listen_port)
-        if listen_port < 1024 or listen_port > 65535:
-            SERVER_LOGGER.error('ValueError')
-            raise ValueError
-    except IndexError:
-        SERVER_LOGGER.error('После параметра -\'p\' необходимо указать номер порта.')
-        print('После параметра -\'p\' необходимо указать номер порта.')
-        sys.exit(1)
-    except ValueError:
-        SERVER_LOGGER.error('В качастве порта может быть указано только число в диапазоне от 1024 до 65535.')
-        print('В качастве порта может быть указано только число в диапазоне от 1024 до 65535.')
-        sys.exit(1)
-
-    # Затем загружаем какой адрес слушать
-
-    try:
-        if '-a' in sys.argv:
-            listen_address = sys.argv[sys.argv.index('-a') + 1]
-        else:
-            listen_address = ''
-
-    except IndexError:
-        SERVER_LOGGER.error('После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.')
-        print(
-            'После параметра \'a\'- необходимо указать адрес, который будет слушать сервер.')
-        sys.exit(1)
-
-    # Готовим сокет
-
-    transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    transport.bind((listen_address, listen_port))
-    transport.settimeout(0.5)
-
-    clients = []
-    messages = []
-    names = dict()
-
-    transport.listen(MAX_CONNECTIONS)
-
-    while True:
-        try:
-            client, client_address = transport.accept()
-        except OSError as err:
-            print(err.errno)
-            pass
-        else:
-            SERVER_LOGGER.info((f'Установлено соедение с ПК {client_address}'))
-            clients.append(client)
-
-        recv_data_lst = []
-        send_data_lst = []
-
-        if recv_data_lst:
-            for client_with_message in recv_data_lst:
-                try:
-                    process_client_message(get_message(client_with_message),
-                                           messages, client_with_message, clients, names)
-                except Exception:
-                    SERVER_LOGGER.info(f'Клиент {client_with_message.getpeername()} '
-                                f'отключился от сервера.')
-                    clients.remove(client_with_message)
-
-        for i in messages:
-            try:
-                process_message(i, names, send_data_lst)
-            except Exception:
-                SERVER_LOGGER.info(f'Связь с клиентом с именем {i[DESTINATION]} была потеряна')
-                clients.remove(names[i[DESTINATION]])
-                del names[i[DESTINATION]]
-        messages.clear()
         #     message_from_cient = get_message(client)
         #     SERVER_LOGGER.info(message_from_cient)
         #     print(message_from_cient)

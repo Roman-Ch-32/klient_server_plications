@@ -25,3 +25,81 @@
 2022-04-03 18:41:01,659 - client - INFO - Запущен клиент с парамертами: адрес сервера: 127.0.0.1, порт: 7777, режим работы: listen
 2022-04-03 18:44:23,548 - client - INFO - Запущен клиент с парамертами: адрес сервера: 127.0.0.1, порт: 7777, режим работы: send
 2022-04-03 18:44:23,548 - client - INFO - Запущен клиент с парамертами: адрес сервера: 127.0.0.1, порт: 7777, режим работы: listen
+2022-04-12 01:19:11,516 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-12 01:20:31,847 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-12 01:20:51,412 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-12 01:21:02,501 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-12 01:31:26,711 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 00:22:23,726 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 00:24:47,981 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 00:28:28,805 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <function DeskPortCheck.check at 0x000002506E7BE8B0>, имя пользователя: listen
+2022-04-17 00:30:48,486 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <function DeskPortCheck.check at 0x0000020891A1E8B0>, имя пользователя: listen
+2022-04-17 00:33:57,544 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000002B47AB43B50>>, имя пользователя: listen
+2022-04-17 00:40:13,492 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001741DBEBB80>>, имя пользователя: listen
+2022-04-17 00:41:07,964 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x00000230B0DEBB80>>, имя пользователя: listen
+2022-04-17 00:44:36,049 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000024504F8BC70>>, имя пользователя: listen
+2022-04-17 00:45:11,076 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001D5DAE6BC70>>, имя пользователя: listen
+2022-04-17 00:45:43,833 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001F4CC93BC70>>, имя пользователя: listen
+2022-04-17 00:45:53,538 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x00000182A7943C40>>, имя пользователя: listen
+2022-04-17 00:46:10,062 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x00000250482FBC70>>, имя пользователя: listen
+2022-04-17 00:50:27,671 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000024155BBBB50>>, имя пользователя: listen
+2022-04-17 00:51:40,378 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000019AC86BBB50>>, имя пользователя: listen
+2022-04-17 00:51:54,912 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000028F3F76BB50>>, имя пользователя: listen
+2022-04-17 00:53:49,500 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001E5B6E1BB50>>, имя пользователя: listen
+2022-04-17 00:58:16,874 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000025492133B20>>, имя пользователя: listen
+2022-04-17 00:58:33,476 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000025492133B20>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 00:58:33,476 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:7777, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:38:08,514 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001AD1F4EB940>>, имя пользователя: listen
+2022-04-17 13:38:10,553 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001AD1F4EB940>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:38:39,835 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001A6647E4850>>, имя пользователя: listen
+2022-04-17 13:38:41,862 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001A6647E4850>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:39:40,585 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000002218C0E4850>>, имя пользователя: listen
+2022-04-17 13:39:42,627 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000002218C0E4850>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:40:14,118 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000021E6C9C4760>>, имя пользователя: listen
+2022-04-17 13:40:16,156 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000021E6C9C4760>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:40:52,040 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000002775CED4850>>, имя пользователя: listen
+2022-04-17 13:40:54,074 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000002775CED4850>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:41:02,243 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001191DAE1A00>>, имя пользователя: listen
+2022-04-17 13:41:04,274 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001191DAE1A00>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:41:51,273 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000021696894730>>, имя пользователя: listen
+2022-04-17 13:41:53,322 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000021696894730>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:42:50,927 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001861A264730>>, имя пользователя: listen
+2022-04-17 13:42:52,961 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001861A264730>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:44:37,654 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001ADFEC74730>>, имя пользователя: listen
+2022-04-17 13:44:39,701 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001ADFEC74730>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:47:49,694 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 13:47:51,725 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:7777, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:51:11,384 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 13:51:13,418 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:7777, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:51:44,278 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 13:51:46,323 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:7777, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:52:00,623 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 13:52:02,660 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:7777, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:52:46,477 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: listen
+2022-04-17 13:52:48,511 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:7777, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:56:00,916 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: None, имя пользователя: listen
+2022-04-17 13:56:02,951 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:None, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:56:13,756 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: None, имя пользователя: listen
+2022-04-17 13:56:15,783 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:None, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:56:42,064 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: None, имя пользователя: listen
+2022-04-17 13:56:44,103 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:None, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:59:09,332 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: None, имя пользователя: listen
+2022-04-17 13:59:11,378 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:None, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:59:43,588 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: None, имя пользователя: listen
+2022-04-17 13:59:45,631 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:None, конечный компьютер отверг запрос на подключение.
+2022-04-17 13:59:48,865 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: None, имя пользователя: listen
+2022-04-17 13:59:50,893 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:None, конечный компьютер отверг запрос на подключение.
+2022-04-17 14:03:26,082 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001509EEC18E0>>, имя пользователя: listen
+2022-04-17 14:03:28,114 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x000001509EEC18E0>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 14:05:48,766 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000023993A218E0>>, имя пользователя: listen
+2022-04-17 14:05:50,797 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x0000023993A218E0>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 14:06:10,735 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x00000233DC825610>>, имя пользователя: listen
+2022-04-17 14:06:12,780 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<bound method DeskPortCheck.check of <common.desk.DeskPortCheck object at 0x00000233DC825610>>, конечный компьютер отверг запрос на подключение.
+2022-04-17 14:15:48,216 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <common.desk.DeskPortCheck object at 0x000001E691D208E0>, имя пользователя: listen
+2022-04-17 14:15:50,258 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<common.desk.DeskPortCheck object at 0x000001E691D208E0>, конечный компьютер отверг запрос на подключение.
+2022-04-17 14:15:59,623 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <common.desk.DeskPortCheck object at 0x0000028C542C08E0>, имя пользователя: listen
+2022-04-17 14:16:01,654 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<common.desk.DeskPortCheck object at 0x0000028C542C08E0>, конечный компьютер отверг запрос на подключение.
+2022-04-17 14:18:58,493 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <common.desk.DeskPortCheck object at 0x0000020124FC3310>, имя пользователя: listen
+2022-04-17 14:19:00,535 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<common.desk.DeskPortCheck object at 0x0000020124FC3310>, конечный компьютер отверг запрос на подключение.
+2022-04-17 14:19:18,276 - client - INFO - Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: <common.desk.DeskPortCheck object at 0x000002859E5608E0>, имя пользователя: listen
+2022-04-18 00:04:07,372 - client - CRITICAL - Не удалось подключиться к серверу 127.0.0.1:<common.desk.DeskPortCheck object at 0x000002859E5608E0>, конечный компьютер отверг запрос на подключение.

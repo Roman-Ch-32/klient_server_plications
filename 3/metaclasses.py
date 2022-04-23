@@ -103,6 +103,7 @@ class ClientMaker(type):
             else:
                 # Раз функция разбираем код, получая используемые методы.
                 for i in ret:
+                    print(i)
                     if i.opname == 'LOAD_GLOBAL':
                         if i.argval not in methods:
                             methods.append(i.argval)

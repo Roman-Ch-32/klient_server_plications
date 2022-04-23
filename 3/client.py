@@ -78,17 +78,38 @@ class Client(threading.Thread, metaclass=ClientMaker):
         return message_dict
 
     @log
-    def user_interactive(self, sock, account_name):
-        """Функция взаимодействия с пользователем, запрашивает команды, отправляет сообщения"""
-        print(help)
+    def create_message(self):
+        to = input('Введите получателя сообщения: ')
+        message = input('Введите сообщение для отправки: ')
+        message_dict = {
+            ACTION: MSG,
+            SENDER: self.account_name,
+            DESTINATION: to,
+            TIME: time.time(),
+            MESSAGE_TEXT: message
+        }
+        CLIENT_LOGGER.debug(f'Сформирован словарь сообщения: {message_dict}')
+        try:
+            send_message(self.sock, message_dict)
+            CLIENT_LOGGER.info(f'Отправлено сообщение для пользователя {to}')
+        except:
+            CLIENT_LOGGER.critical('Потеряно соединение с сервером.')
+            exit(1)
+
+    # Функция взаимодействия с пользователем, запрашивает команды, отправляет сообщения
+    def run(self):
+        self.print_help()
         while True:
             command = input('Введите команду: ')
             if command == 'message':
-                Client.create_message(sock, account_name)
+                self.create_message()
             elif command == 'help':
-                print(help)
+                self.print_help()
             elif command == 'exit':
-                send_message(sock, Client.create_exit_message(account_name))
+                try:
+                    send_message(self.sock, self.create_exit_message())
+                except:
+                    pass
                 print('Завершение соединения.')
                 CLIENT_LOGGER.info('Завершение работы по команде пользователя.')
                 # Задержка неоходима, чтобы успело уйти сообщение о выходе
@@ -96,6 +117,38 @@ class Client(threading.Thread, metaclass=ClientMaker):
                 break
             else:
                 print('Команда не распознана, попробойте снова. help - вывести поддерживаемые команды.')
+
+    # Функция выводящяя справку по использованию.
+    def print_help(self):
+        print('Поддерживаемые команды:')
+        print('message - отправить сообщение. Кому и текст будет запрошены отдельно.')
+        print('help - вывести подсказки по командам')
+        print('exit - выход из программы')
+
+
+# Класс-приёмник сообщений с сервера. Принимает сообщения, выводит в консоль.
+class ClientReader(threading.Thread, metaclass=ClientMaker):
+    def __init__(self, account_name, sock):
+        self.account_name = account_name
+        self.sock = sock
+        super().__init__()
+
+    # Основной цикл приёмника сообщений, принимает сообщения, выводит в консоль. Завершается при потере соединения.
+    def run(self):
+        while True:
+            try:
+                message = get_message(self.sock)
+                if ACTION in message and message[ACTION] == MSG and SENDER in message and DESTINATION in message \
+                        and MESSAGE_TEXT in message and message[DESTINATION] == self.account_name:
+                    print(f'\nПолучено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
+                    CLIENT_LOGGER.info(f'Получено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
+                else:
+                    CLIENT_LOGGER.error(f'Получено некорректное сообщение с сервера: {message}')
+            except IncorrectDataRecivedError:
+                CLIENT_LOGGER.error(f'Не удалось декодировать полученное сообщение.')
+            except (OSError, ConnectionError, ConnectionAbortedError, ConnectionResetError, json.JSONDecodeError):
+                CLIENT_LOGGER.critical(f'Потеряно соединение с сервером.')
+                break
 
 
 @log

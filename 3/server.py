@@ -16,17 +16,19 @@ from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
     RESPONSE_400, DESTINATION, EXIT
 from common.utils import get_message, send_message
 from metaclasses import ServerMaker
+from main_db import Database
 
 SERVER_LOGGER = logging.getLogger('server')
 
 
 class Server(threading.Thread, metaclass=ServerMaker):
-    def __init__(self, message, messages_list, client, clients, names):
+    def __init__(self, message, messages_list, client, clients, names, db):
         self.message = message
         self.client = client
         self.clients = clients
         self.messages_list = messages_list
         self.names = names
+        self.db = db
         super().__init__()
 
 
@@ -210,17 +212,41 @@ def main():
     '''
     Server.mainloop(arg_parser())
 
-        #     message_from_cient = get_message(client)
-        #     SERVER_LOGGER.info(message_from_cient)
-        #     print(message_from_cient)
-        #     response = process_client_message(message_from_cient)
-        #     send_message(client, response)
-        #     SERVER_LOGGER.info(response)
-        #     client.close()
-        # except (ValueError, json.JSONDecodeError):
-        #     SERVER_LOGGER.critical('Принято некорретное сообщение от клиента.')
-        #     print('Принято некорретное сообщение от клиента.')
-        #     client.close()
+    # Загрузка параметров командной строки, если нет параметров, то задаём значения по умолчанию.
+    listen_address, listen_port = arg_parser()
+
+    # Инициализация базы данных
+    database = Database()
+
+    # Создание экземпляра класса - сервера и его запуск:
+    server = Server(listen_address, listen_port, database)
+    server.daemon = True
+    server.start()
+
+    def print_help():
+        print(f'+++++')
+
+    # Основной цикл сервера:
+    while True:
+        command = input('Введите команду: ')
+        if command == 'help':
+            print_help()
+        elif command == 'exit':
+            break
+        elif command == 'users':
+            for user in sorted(database.users_list()):
+                print(f'Пользователь {user[0]}, последний вход: {user[1]}')
+        elif command == 'connected':
+            for user in sorted(database.active_users_list()):
+                print(
+                    f'Пользователь {user[0]}, подключен: {user[1]}:{user[2]}, время установки соединения: {user[3]}')
+        elif command == 'loghist':
+            name = input('Введите имя пользователя для просмотра истории. '
+                         'Для вывода всей истории, просто нажмите Enter: ')
+            for user in sorted(database.login_history(name)):
+                print(f'Пользователь: {user[0]} время входа: {user[1]}. Вход с: {user[2]}:{user[3]}')
+        else:
+            print('Команда не распознана.')
 
 
 if __name__ == '__main__':

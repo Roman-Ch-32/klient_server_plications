@@ -5,9 +5,9 @@ import sys
 from PyQt5.QtWidgets import QApplication
 
 from common.variables import *
-from errors import ServerError
-from logs.dec_log import log
-from client.client_database import ClientDatabase
+from common.errors import ServerError
+from common.decos import log
+from client.database import ClientDatabase
 from client.transport import ClientTransport
 from client.main_window import ClientMainWindow
 from client.start_dialog import UserNameDialog
